@@ -1,2 +1,2 @@
-#tauv_control(abyss)
-[alt text](https://github.com/hayrilatif/tauv_control/blob/main/files/images/tauv-control.png?raw=True)
+# tauv_control(abyss)
+![tauv-control](https://github.com/user-attachments/assets/324047fb-3e84-4181-b726-b6947ece87b8)
