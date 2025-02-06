@@ -1,0 +1,191 @@
+Tek bir hiyerarşik durum makinası var ve behaviour orchestrator bu durum makinesini çalıştırıyor.
+
+    Durum makinesi iki şekilde yürütülebilir. Aksiyon tabanlı yürütme ve kontrol tabanlı yürütme.
+
+    Kontrol Tabanlı yürütme çok daha sık yapılıyor ve bir durum makinası çalışırken başka bir durum nakinesine geçiş gerekli ise bu geçişlerin yapılmasını sağlıyor.
+    Aksiyon Tabanlı yürütme bu kontrolleri yapmıyor ve elementer aksiyon blokları (hareket, dönme) çalıştırabiliyor.
+
+    Sensör verileri olabildiğince sık güncelleniyor ve evrensel sensör değişkeninde tutuluyor.
+
+    Durum makinasından bağımsız ve sensör verilerine bağlı kontrol algoritmaları her sensör verisi yenilendiğinde çalıştırılıyor ve gerekli
+    kontrol durumlarını hesaplıyor. (Olası çarpışma, engel, başka durum makinasına geçilmesi gereken olay vb.) Bu durumlar evrensel bellekte tutuluyor.
+
+    Durum makinesindeki herhangi bir duruma, evrensel bellekteki herhangi bir değişken, trigger olarak eklenebiliyor. Bu triggerlar Kontrol Tabanlı yürütme ile kontrol ediliyor ve
+    gerekirse durum makinesi bu yan durum makinelerine olarak geçiyor. 
+
+
+    
+    1. Araç suya bırakıldı.
+    2. Pingera doğru yönelme durumunda olduğundan pingera yönelmesini sağlayacak ufak bir manevra yaptı. (Pinger ile arasındaki açı eşitlenene kadar bu durumda kalacak ve her aksiyon yürütmesinde bu durumun aksiyonunu çalıştıracak.)
+    
+    #Pingera tam yöneldiğini varsayalım.
+
+    1. Pingera doğru hareket etmeye başladı.
+    2. Kontrol Tabanlı yürütme sırasında evrensel bellekteki engel triggerının aktif olduğu farkedildi.
+    3. Durum makinesi aksiyon yürütmesinden önce değiştiriliyor ve ekip tarafından önceden belirlenmiş ve içinde bulunulan duruma özel (şu durumda pingera doğru gitme)engelden
+    kaçınma durum makinasına geçiliyor. (Kontrol yürütmesi daha sık yapıldığından ötürü.) 
+    4. Aksiyon yürütmesi sırasında engelden kaçınma için oluşturulan durum makinesinin manevrası uygulanıyor.
+    5. Engelden kaçınma durumu bitene kadar her aksiyon yürütmesinde engelden kaçınma odaklı hamleler yapılıyor. (Engelden kaçınma durum makinesinde belirtildiği üzere.)
+    6. Engelden kaçınma durum makinesi engelden kaçıldığına karar verdiğinde (veya timeout/abort yediğinde) ana durum makinesine bağlanmak için başka bir durum makinesine geçer.
+    (Bu durum makinesi de ekip tarafından geliştirilir.)
+    7. Daha sonra bu ana bölgeye bağlanma amaçlı durum makinesi sonlandığında ana durum makinesine geçiş yapılır. (Yeniden bağlanılan durum engel kaçınma manevrası için ayrılınan
+    durum veya başka bir durum olabilir.)
+    8. (Örneğin) pingera doğru hareket etmeye devam edecek şekilde durum makinesine bağlanır.
+
+
+
+ChatGPT ile beyin fırtınası:
+
+Tek bir hiyerarşik durum makinası var ve behaviour orchestrator bu durum makinesini çalıştırıyor.
+
+    Durum makinesi iki şekilde yürütülebilir. Aksiyon tabanlı yürütme ve kontrol tabanlı yürütme.
+
+    Kontrol Tabanlı yürütme çok daha sık yapılıyor ve bir durum makinası çalışırken başka bir durum nakinesine geçiş gerekli ise bu geçişlerin yapılmasını sağlıyor.
+    Aksiyon Tabanlı yürütme bu kontrolleri yapmıyor ve elementer aksiyon blokları (hareket, dönme) çalıştırabiliyor.
+
+    Sensör verileri olabildiğince sık güncelleniyor ve evrensel sensör değişkeninde tutuluyor.
+
+    Durum makinasından bağımsız ve sensör verilerine bağlı kontrol algoritmaları her sensör verisi yenilendiğinde çalıştırılıyor ve gerekli
+    kontrol durumlarını hesaplıyor. (Olası çarpışma, engel, başka durum makinasına geçilmesi gereken olay vb.) Bu durumlar evrensel bellekte tutuluyor.
+
+    Durum makinesindeki herhangi bir duruma, evrensel bellekteki herhangi bir değişken, trigger olarak eklenebiliyor. Bu triggerlar Kontrol Tabanlı yürütme ile kontrol ediliyor ve
+    gerekirse durum makinesi bu yan durum makinelerine olarak geçiyor. 
+
+
+    
+    1. Araç suya bırakıldı.
+    2. Pingera doğru yönelme durumunda olduğundan pingera yönelmesini sağlayacak ufak bir manevra yaptı. (Pinger ile arasındaki açı eşitlenene kadar bu durumda kalacak ve her aksiyon yürütmesinde bu durumun aksiyonunu çalıştıracak.)
+    
+    #Pingera tam yöneldiğini varsayalım.
+
+    1. Pingera doğru hareket etmeye başladı.
+    2. Kontrol Tabanlı yürütme sırasında evrensel bellekteki engel triggerının aktif olduğu farkedildi.
+    3. Durum makinesi aksiyon yürütmesinden önce değiştiriliyor ve ekip tarafından önceden belirlenmiş ve içinde bulunulan duruma özel (şu durumda pingera doğru gitme)engelden
+    kaçınma durum makinasına geçiliyor. (Kontrol yürütmesi daha sık yapıldığından ötürü.) 
+    4. Aksiyon yürütmesi sırasında engelden kaçınma için oluşturulan durum makinesinin manevrası uygulanıyor.
+    5. Engelden kaçınma durumu bitene kadar her aksiyon yürütmesinde engelden kaçınma odaklı hamleler yapılıyor. (Engelden kaçınma durum makinesinde belirtildiği üzere.)
+    6. Engelden kaçınma durum makinesi engelden kaçıldığına karar verdiğinde (veya timeout/abort yediğinde) ana durum makinesine bağlanmak için başka bir durum makinesine geçer.
+    (Bu durum makinesi de ekip tarafından geliştirilir.)
+    7. Daha sonra bu ana bölgeye bağlanma amaçlı durum makinesi sonlandığında ana durum makinesine geçiş yapılır. (Yeniden bağlanılan durum engel kaçınma manevrası için ayrılınan
+    durum veya başka bir durum olabilir.)
+    8. (Örneğin) pingera doğru hareket etmeye devam edecek şekilde durum makinesine bağlanır.
+
+Nasıl?
+ChatGPT:
+ChatGPT
+Bu sistem modüler, hiyerarşik, reaktif ve esnek bir yapı sunuyor. Genel olarak davranışları yönetmek için güçlü bir çerçeve sağlıyor. Sistemi farklı açılardan analiz edelim.
+
+Güçlü Yönler
+1. Modülerlik ve Hiyerarşi
+Tek bir durum makinesi var, ancak farklı durumlara geçiş yeteneği esnek tutulmuş.
+Engel kaçınma, bağlanma ve ana görev gibi farklı modüller bağımsız yönetilebiliyor.
+Evrensel sensör verisi ve trigger tabanlı geçiş mekanizması sistemi çok esnek yapıyor.
+2. Reaktif ve Gerçek Zamanlı Davranış
+Sensör verileri sürekli yenileniyor, bu da sistemin anlık değişikliklere tepki verebilmesini sağlıyor.
+Kontrol tabanlı yürütme aksiyonları yürütmeden önce durumu değerlendiriyor, böylece robot beklenmedik bir duruma girdiğinde anında yeni bir duruma geçebilir.
+3. Hata Yönetimi ve Zor Durumlar için Planlama
+Abort mekanizması var, yani bir görev başarısız olursa alternatif aksiyonlarla durumu yönetebiliyorsun.
+Timeout sistemleri sayesinde tıkanma yaşanmadan süreç devam edebiliyor.
+Engelden kaçınma sonrası yeniden bağlanma için özel durum makineleri var, bu da sistemin dengesini koruyor.
+Olası Zayıf Yönler ve Geliştirme Önerileri
+1. Bağlanma Mekanizmasının Daha Dinamik Olması Gerekebilir
+Şu an sistemde engel kaçınıldıktan sonra bir bağlanma durum makinesine geçiliyor, ancak:
+
+Engelden kaçarken robotun konumu ve yönü değişebilir.
+Bağlanma için yeni bir rota hesaplamak gerekebilir.
+Örneğin "Pinger yönelme" durumundan çıkıp engelden kaçarken pingerin yönü değişmiş olabilir.
+Öneri: "Bağlanma" durumu statik değil, duruma göre esnek olmalı. Yeniden yönlenme gerekebilir.
+2. Kontrol ve Aksiyon Tabanlı Yürütme Geçişleri Karışabilir
+Şu an kontrol tabanlı yürütme durumu sürekli takip ediyor, aksiyon tabanlı yürütme ise belirli manevraları çalıştırıyor.
+
+Ancak bazı durum geçişlerinde hangi modun aktif olacağı konusunda belirsizlik olabilir.
+Örneğin, bir engelden kaçarken aksiyon tabanlı yürütme mi yoksa kontrol tabanlı yürütme mi aktif olacak?
+Öneri: Engel kaçınma sürecindeyken kontrol tabanlı yürütme kısıtlanabilir veya kontrol frekansı düşürülebilir.
+Böylece engelden kaçma süreci sırasında gereksiz geçişler olmaz.
+3. Sensör Gürültüsüne Karşı Adaptasyon Gerekebilir
+Sensörlerden gelen veriler her zaman hatasız olmayabilir.
+Eğer bir sensör hatalı bir engel algılarsa, gereksiz yere engel kaçınma sürecine girilebilir.
+Öneri: Sensör verileri birden fazla okumaya dayalı olarak karar vermeli.
+Örneğin: 2-3 ölçüm arka arkaya bir engel algıladıysa ancak robotun hareketi sırasında engel algılanması kesildiyse, sistem gereksiz engel kaçınma moduna girmemeli.
+Sonuç
+Bu sistem çok iyi bir mimari temele sahip. Özellikle şu noktalar güçlü: ✅ Hiyerarşik ve modüler yapı sayesinde ölçeklenebilirlik yüksek.
+✅ Kontrol tabanlı yürütme sayesinde hızlı tepki verebilir.
+✅ Aksiyon tabanlı yürütme sayesinde hassas hareketler sağlanabilir.
+✅ Bağımsız çalışan engel tespit ve durum geçiş mekanizmaları, güvenliği artırıyor.
+
+Ancak şu geliştirmeler ile sistem daha sağlam hale gelebilir:
+
+Bağlanma sürecini daha esnek ve duruma duyarlı hale getirmek.
+Kontrol tabanlı ve aksiyon tabanlı yürütmenin sınırlarını netleştirmek.
+Sensör hatalarına karşı bir doğrulama ve güven mekanizması eklemek.
+Bu öneriler dikkate alındığında sistem hem reaktif hem de uzun vadeli hareket planlaması yapabilen güçlü bir hale gelecektir. 🚀
+
+
+
+
+
+
+Şunu dedin:
+Tek tek eleştirilerine cevap vereceğim:
+1. Bağlanma Mekanizmasının Daha Dinamik Olması Gerekebilir
+Bağlanma durum makinesi her ayrılan durum için ekip tarafından belilenen bir makine. Bu zaten esnek bir şey. Eğer boru hattı takip ederken engel bulunursa ve geçişten sonra tekrar boruyu takip edebilecek durumda değilse araç, o zaman bu durum makinesi robotu bu hale sokmaya veya mümkün görünmüyorsa ana durum makinesinin önceki birer adımlarına iletecek. Bu her durum için ayrı ayrı yapılacak ama her durum için yapılması şart olmayacak. Pingera dönme sürecinde engelle karşılaşma mümkün değil dolayısıyla buna gerek yok.
+
+2. Kontrol ve Aksiyon Tabanlı Yürütme Geçişleri Karışabilir
+engelden kaçarken de ayrı bir durum makinesi çalışacak ama bu duum makşnesi de içinde kontrol geçişleri ve aksiyon geçişleri barındıracak. burada bahsettiğin karışıklıktan asstın ne anlamadım. Ben bir karışıklık göremiyorum.
+
+3. Sensör Gürültüsüne Karşı Adaptasyon Gerekebilir
+haklısın bu iyi bir fikir. Fakat zaten bu sistem ile kolayca giderilebilecek bir problem. Sistemse bir değişikliğe gerek yok. Zaten durum makinasından bağımsız ve sensör verilerine bağlı kontrol algoritmaları her sensör verisi yenilendiğinde çalıştırılıyor ve gerekli kontrol durumlarını hesaplıyor. (Olası çarpışma, engel, başka durum makinasına geçilmesi gereken olay vb.) Bu durumlar evrensel bellekte tutuluyor. Burada bahsedilen kontrol algoritmaları durum geçişlerini kontrol edenler değil. Buradaki kontrol algoritmaları sadece sensör verisini yorumlayan yardımcı sistemler. Örneğin YOLO veya hız tahminleyiciler gibi. Buradaki kontrol sistemlerine 3-5 kez bu sensör verisini alırsan eğer engel var olarak belleğe işle emri verilebilir ve tanımladığın problem çözülür.
+
+Ne diyorsun?
+ChatGPT:
+ChatGPT
+Önerdiğin açıklamalar sistemin esneklik, modülerlik ve sağlamlık açısından iyi bir temele sahip olduğunu gösteriyor. Cevaplarına tek tek yanıt vereyim:
+
+1. Bağlanma Mekanizmasının Daha Dinamik Olması Gerekebilir
+Açıklamana göre:
+
+Bağlanma durumu, her durum için özel olarak belirleniyor ve ihtiyaca göre tasarlanıyor.
+Eğer robot, engelden kaçınma sonrası ana duruma dönemeyecek kadar farklı bir konuma düşerse, bağlanma makinesi bu eksikliği tamamlayacak.
+✅ Bu gayet mantıklı ve iyi düşünülmüş. Zaten her durum için bir bağlanma gerekmiyor diyorsun, dolayısıyla gereksiz hesaplamalar da önlenmiş oluyor.
+📌 Sonuç: Burada bir sıkıntı görmüyorum, sistem iyi tasarlanmış.
+
+2. Kontrol ve Aksiyon Tabanlı Yürütme Geçişleri Karışabilir
+Burada ne demek istediğimi daha net açıklayayım:
+
+Kontrol tabanlı yürütme daha sık çalışıyor ve anlık geçişleri yönetiyor.
+Aksiyon tabanlı yürütme durumun gerektirdiği hareketleri çalıştırıyor.
+Senin sisteminde engel kaçınma süreci de bir durum makinesi tarafından yönetiliyor ve bu makine içinde hem aksiyon tabanlı hem de kontrol tabanlı yürütmeler olacak. Eğer bu geçişler net tanımlandıysa benim gördüğüm potansiyel sorun ortadan kalkmış oluyor.
+
+Peki neden bunu düşündüm? Bazı sistemlerde, kontrol tabanlı yürütme ve aksiyon tabanlı yürütme birbirine müdahale edebilir. Örneğin:
+
+Pinger yönelme durumundayken aksiyon tabanlı yürütme, dönüş hareketi yapıyor.
+Tam bu sırada kontrol tabanlı yürütme, sensörlerden engel algılıyor ve engel kaçınma durumuna geçiyor.
+Ancak, dönüş hareketi bitmeden yeni bir hareket uygulanırsa, robot ani yön değişiklikleri yapabilir.
+Senin sisteminde bu risk, engel kaçınma için ayrı bir durum makinesi oluşturulduğu için zaten çözülmüş görünüyor. Yani kontrol ve aksiyon tabanlı geçişler, durum makineleri içinde organize ediliyorsa bir sorun kalmaz.
+
+📌 Sonuç: Senin açıklamana göre bu geçişler net tanımlandıysa, düşündüğüm karışıklık oluşmaz. Eğer testlerde de sorunsuz çalışıyorsa, bu eleştiriyi geri çekiyorum.
+
+3. Sensör Gürültüsüne Karşı Adaptasyon Gerekebilir
+Buradaki çözüm önerin gayet iyi:
+
+Evrensel bellekte sensörlerden gelen verilerin stabil hale gelmesi beklenebilir.
+"3-5 kez ardışık olarak aynı sonucu görmeden durumu değiştirme" mantığı uygulanabilir.
+Sensör verisi zaten bağımsız bir kontrol algoritması tarafından işleniyor, yani asıl durum makinelerine müdahale edilmeden bu problem çözülebilir.
+📌 Sonuç: Burada yapısal bir değişikliğe gerek yok, sadece sensör yorumlama algoritmalarına bir stabilite katmanı eklemek yeterli olur. Katılıyorum, bu güzel bir çözüm.
+
+Genel Değerlendirme
+📌 Sistem Modüler ve Güçlü:
+
+Bağlanma mekanizması zaten esnek ve her duruma özel.
+Engel kaçınma, bağımsız bir durum makinesi olduğu için kontrol ve aksiyon geçişleri organize ediliyor.
+Sensör gürültüsü, ek bir algoritmayla rahatça filtrelenebilir.
+✅ Senin yaptığın açıklamalarla düşündüğüm risklerin çoğu ortadan kalkıyor.
+📌 Eğer testlerde de bu sistem öngördüğün gibi çalışırsa, oldukça sağlam bir yapı ortaya çıkıyor.
+
+Geriye Tek Bir Küçük Not:
+Bence bu kontrol tabanlı yürütme ve aksiyon tabanlı yürütme sisteminin nasıl çalıştığı iyi bir şekilde belgelenmeli.
+
+Özellikle ekip içindeki yeni biri bu sistemi kullanacaksa, hangi durumda ne çalışıyor, hangi durum makineleri neyi devralıyor gibi detayları iyi anlamalı.
+Bu, hem hata ayıklama sürecini hızlandırır hem de sistemin daha sürdürülebilir olmasını sağlar.
+🚀 Sonuç olarak, sistem mantıklı ve pratik görünüyor.
+Eğer simülasyon veya gerçek testlerde de bu mekanizma tahmin ettiğin gibi sorunsuz çalışıyorsa, oldukça güçlü bir altyapı kurmuş oluyorsun. 🔥

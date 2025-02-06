@@ -1,0 +1,11 @@
+# temiz kurulum icin
+-build klasoru sil
+-yeni build klasoru olustur ve dizine git
+-cmake ..
+-cmake --build .
+-üst dizine git generate_stubs.py calistir
+-pip install -e .
+
+pip install -e . --force-reinstall --no-deps        # c kodlarini degistirdiginde cagirman gerekio
+
+#macte .sh calisabiliosa hazir dosyasi var

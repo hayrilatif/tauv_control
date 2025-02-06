@@ -1,0 +1,7 @@
+# Editable Git install with no remote (abyss==0.1.0)
+-e /home/hayrilatif/Desktop/uni_teams/tauv/tauv-system/abyss/project/src
+pybind11==2.13.6
+pybind11-stubgen==2.5.1
+scikit-build==0.18.1
+setuptools==75.8.0
+wheel==0.45.1
